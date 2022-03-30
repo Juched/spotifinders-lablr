@@ -12,8 +12,7 @@ REDIR = os.environ['REDIR']
 
 SENTENCES = []
 MAPPINGS = {}
-with open("outputs/output.txt", 'r') as f:
-       MAPPINGS = json.loads(f.read())
+
 
 with open('dialogues_text.txt', 'r') as f:
     text = f.read()
@@ -21,9 +20,7 @@ with open('dialogues_text.txt', 'r') as f:
     temp = text.split('__eou__')
     for x in temp:
         if x != '':
-            if x not in MAPPINGS:
-                SENTENCES.append(x)
-
+            SENTENCES.append(x)
 
 
 @app.before_request
@@ -62,8 +59,8 @@ def disconnect():
 def download():
     print("Trying to download")
     with open("outputs/output.txt", 'w') as f:
-        f.write(json.dumps(MAPPINGS))
+        f.write(str(MAPPINGS))
     return send_file('outputs/output.txt',attachment_filename='out.txt', as_attachment=True)
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    app.run(debug=True)
