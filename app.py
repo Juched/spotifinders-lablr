@@ -58,7 +58,7 @@ def disconnect():
 def download():
     print("Trying to download")
     with open("outputs/output.txt", 'w') as f:
-        f.write(str(MAPPINGS))
+        f.write(json.dumps(MAPPINGS))
     return send_file('outputs/output.txt',attachment_filename='out.txt', as_attachment=True)
 
 if __name__ == "__main__":
